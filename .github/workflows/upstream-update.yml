@@ -25,7 +25,10 @@ jobs:
         run: git remote -v
       #------------------------------------------------------------------------------------
       - name: Create & checkout upstream branch
-        run: git checkout -b master upstream/master
+        run: git checkout -b master upstream/master 
+      #------------------------------------------------------------------------------------
+      - name: Configure merge strategy
+        run: git config pull.rebase false
       #------------------------------------------------------------------------------------
       - name: Pull upstream branch
         run: git pull

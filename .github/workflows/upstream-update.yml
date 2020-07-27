@@ -37,7 +37,7 @@ jobs:
         run: git config --global user.email "alphac9@gmail.com" 
       #------------------------------------------------------------------------------------
       - name: Configure name
-        run: git config --global user.name "megatron"
+        run: git config --global user.name "AndrewSftD"
       #------------------------------------------------------------------------------------
       - name: Auto merge upstream master
         run: git merge master

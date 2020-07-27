@@ -1,0 +1,46 @@
+name: Update from upstream
+
+# Controls when the action will run. 
+on:
+  schedule:
+    - cron: '09 00,12 * * *'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  upstream-update:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout master
+        uses: AndrewSftD/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: upstream
+      #------------------------------------------------------------------------------------
+      - name: Add & fetch upstream remote 
+        run: git remote add -f upstream https://github.com/efabless/openlane.git
+      #------------------------------------------------------------------------------------
+      - name: Check remotes
+        run: git remote -v
+      #------------------------------------------------------------------------------------
+      - name: Create & checkout upstream branch
+        run: git checkout -b master upstream/master
+      #------------------------------------------------------------------------------------
+      - name: Pull upstream branch
+        run: git pull
+      #------------------------------------------------------------------------------------
+      - name: Switch upstream branch
+        run: git checkout upstream
+      #------------------------------------------------------------------------------------
+      - name: Configure email
+        run: git config --global user.email "alphac9@gmail.com" 
+      #------------------------------------------------------------------------------------
+      - name: Configure name
+        run: git config --global user.name "megatron"
+      #------------------------------------------------------------------------------------
+      - name: Auto merge upstream master
+        run: git merge master
+      #------------------------------------------------------------------------------------
+      - name: Push updated upstream
+        run: git push origin upstream
